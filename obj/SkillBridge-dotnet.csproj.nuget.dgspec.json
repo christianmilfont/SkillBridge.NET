@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\labsfiap\\source\\repos\\SkillBridge-dotnet\\SkillBridge-dotnet\\SkillBridge-dotnet.csproj": {}
+    "C:\\Users\\labsfiap\\source\\repos\\SkillBridge.NET\\SkillBridge-dotnet.csproj": {}
   },
   "projects": {
-    "C:\\Users\\labsfiap\\source\\repos\\SkillBridge-dotnet\\SkillBridge-dotnet\\SkillBridge-dotnet.csproj": {
+    "C:\\Users\\labsfiap\\source\\repos\\SkillBridge.NET\\SkillBridge-dotnet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\labsfiap\\source\\repos\\SkillBridge-dotnet\\SkillBridge-dotnet\\SkillBridge-dotnet.csproj",
+        "projectUniqueName": "C:\\Users\\labsfiap\\source\\repos\\SkillBridge.NET\\SkillBridge-dotnet.csproj",
         "projectName": "SkillBridge-dotnet",
-        "projectPath": "C:\\Users\\labsfiap\\source\\repos\\SkillBridge-dotnet\\SkillBridge-dotnet\\SkillBridge-dotnet.csproj",
+        "projectPath": "C:\\Users\\labsfiap\\source\\repos\\SkillBridge.NET\\SkillBridge-dotnet.csproj",
         "packagesPath": "C:\\Users\\labsfiap\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\labsfiap\\source\\repos\\SkillBridge-dotnet\\SkillBridge-dotnet\\obj\\",
+        "outputPath": "C:\\Users\\labsfiap\\source\\repos\\SkillBridge.NET\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,6 +51,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Versioning": {
               "target": "Package",
               "version": "[5.1.0, )"
@@ -66,6 +74,10 @@
             "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             },
             "OpenTelemetry": {
               "target": "Package",
@@ -106,6 +118,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             }
           },
           "imports": [
