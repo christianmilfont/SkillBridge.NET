@@ -17,6 +17,7 @@ namespace SkillBridge_dotnet.Api.Data
         public DbSet<Vacancy> Vacancies { get; set; }
         public DbSet<Competency> Competencies { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Recommendation> Recommendations { get; set; }
 
         // Join entities
         public DbSet<ProfileCompetency> ProfileCompetencies { get; set; }

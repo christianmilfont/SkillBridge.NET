@@ -13,7 +13,7 @@ namespace SkillBridge_dotnet.Api.Models.Joins
         public Competency Competency { get; set; }
 
         // Example metadata: self-assessed level, years of experience
-        public CompetencyLevel? SelfAssessedLevel { get; set; }
+        public CompetencyLevel? SelfAssessedLevel { get; set; }        
         public int? YearsExperience { get; set; }
     }
 }

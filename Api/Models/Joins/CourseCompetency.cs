@@ -14,5 +14,7 @@ namespace SkillBridge_dotnet.Api.Models.Joins
 
         // e.g. weight or coverage percentage
         public int CoveragePercent { get; set; }
+        // e.g. required level
+        public CompetencyLevel RequiredLevel { get; set; } = CompetencyLevel.Beginner;
     }
 }

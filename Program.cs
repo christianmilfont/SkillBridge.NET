@@ -9,6 +9,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using SkillBridge_dotnet.Api.Data;
+using SkillBridge_dotnet.Api.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,8 @@ var resourceBuilder = ResourceBuilder.CreateDefault()
 // 🔹 Controllers e Swagger
 // ===========================================================
 builder.Services.AddControllers();
+builder.Services.AddScoped<IMatchingService, MatchingService>();
+builder.Services.AddScoped<RecommendationService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApiVersioning(o =>
