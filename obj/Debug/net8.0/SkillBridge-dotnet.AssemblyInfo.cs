@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SkillBridge-dotnet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bade05f3826c6de6dd8b3581fcd331463843d10e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b703d2fda9fc597d84bc9da1ebf5a1695eae6b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SkillBridge-dotnet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SkillBridge-dotnet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
