@@ -43,10 +43,23 @@ namespace SkillBridge_dotnet.Api.Controllers
 
             await _context.SaveChangesAsync();
 
-            // 🔹 Recomendar automaticamente
+            // 🔄 Recarrega o curso com as competencies
+            await _context.Entry(course)
+                .Collection(c => c.CourseCompetencies)
+                .LoadAsync();
+
+            // 🔹 Recomenda automaticamente perfis
             await _recom.RecommendCourseAsync(course);
 
-            return Ok(course);
+            return Ok(new
+            {
+                course.Id,
+                course.Title,
+                Competencies = course.CourseCompetencies.Select(c => new
+                {
+                    c.CompetencyId
+                })
+            });
         }
 
         public class CreateCourseDto
