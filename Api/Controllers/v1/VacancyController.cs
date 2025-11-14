@@ -29,6 +29,7 @@ namespace SkillBridge_dotnet.Api.Controllers
                 Title = dto.Title,
                 Description = dto.Description,
                 Company = dto.Company, // ← obrigatório
+                Location = dto.Location
                 Status = VacancyStatus.Open
             };
 
@@ -58,6 +59,7 @@ namespace SkillBridge_dotnet.Api.Controllers
             public string Title { get; set; }
             public string Description { get; set; }
             public string Company { get; set; }   // OBRIGATÓRIO
+            public string Location { get; set; }   // OBRIGATÓRIO
 
             public List<CompetencyInput> Competencies { get; set; }
         }
