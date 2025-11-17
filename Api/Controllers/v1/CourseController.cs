@@ -19,7 +19,31 @@ namespace SkillBridge_dotnet.Api.Controllers
             _context = context;
             _recom = new RecommendationService(context);
         }
+        [HttpGet("{courseId}")]
+        public async Task<IActionResult> GetCourse(Guid courseId)
+        {
+            var course = await _context.Courses
+                .Include(c => c.CourseCompetencies)
+                .ThenInclude(cc => cc.Competency) // Inclui as competências associadas
+                .FirstOrDefaultAsync(c => c.Id == courseId);
 
+            if (course == null)
+            {
+                return NotFound(new { message = "Curso não encontrado." });
+            }
+
+            return Ok(new
+            {
+                course.Id,
+                course.Title,
+                course.Description,
+                CourseCompetencies = course.CourseCompetencies.Select(c => new
+                {
+                    c.CompetencyId,
+                    CompetencyName = c.Competency.Name // Nome da competência
+                })
+            });
+        }
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseDto dto)
         {
