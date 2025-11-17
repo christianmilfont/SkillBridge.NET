@@ -19,39 +19,39 @@ namespace SkillBridge_dotnet.Api.Controllers
         [HttpGet("courses/{profileId}")]
         public async Task<IActionResult> GetRecommendedCourses(Guid profileId)
         {
-            var list = await _context.Recommendations
+            var recommendedCourses = await _context.Recommendations
                 .Where(r => r.ProfileId == profileId && r.CourseId != null)
                 .Include(r => r.Course)
                 .Select(r => new
                 {
-                    r.Course.Id,
-                    r.Course.Title,
-                    r.Course.Description
+                    CourseId = r.CourseId,
+                    Title = r.Course != null ? r.Course.Title : "",
+                    Description = r.Course != null ? r.Course.Description : ""
                 })
                 .ToListAsync();
 
-            return Ok(list);
+            return Ok(recommendedCourses);
         }
 
         // 🔹 Vagas recomendadas para o perfil
         [HttpGet("vacancies/{profileId}")]
         public async Task<IActionResult> GetRecommendedVacancies(Guid profileId)
         {
-            var list = await _context.Recommendations
+            var recommendedVacancies = await _context.Recommendations
                 .Where(r => r.ProfileId == profileId && r.VacancyId != null)
                 .Include(r => r.Vacancy)
                 .Select(r => new
                 {
-                    r.Vacancy.Id,
-                    r.Vacancy.Title,
-                    r.Vacancy.Description,
-                    r.Vacancy.Company,
-                    r.Vacancy.Location,
-                    r.Vacancy.Status
+                    VacancyId = r.VacancyId,
+                    Title = r.Vacancy != null ? r.Vacancy.Title : "",
+                    Description = r.Vacancy != null ? r.Vacancy.Description : "",
+                    Company = r.Vacancy != null ? r.Vacancy.Company : "",
+                    Location = r.Vacancy != null ? r.Vacancy.Location : "",
+                    Status = r.Vacancy != null ? r.Vacancy.Status.ToString() : ""
                 })
                 .ToListAsync();
 
-            return Ok(list);
+            return Ok(recommendedVacancies);
         }
     }
 }
