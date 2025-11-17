@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SkillBridge_dotnet.Api.Data;
 using SkillBridge_dotnet.Api.Models;
 using SkillBridge_dotnet.Api.dtos;
+using SkillBridge_dotnet.Api.Models.Enums;
 
 namespace SkillBridge_dotnet.Api.Controllers.v1
 {
