@@ -20,6 +20,12 @@ namespace SkillBridge_dotnet.Api.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCompetencyDto dto)
         {
+            // Verificação para garantir que o nível está dentro dos limites
+            if (!Enum.IsDefined(typeof(CompetencyLevel), dto.RecommendedLevel))
+            {
+                return BadRequest("O nível recomendado é inválido.");
+            }
+
             var competency = new Competency
             {
                 Name = dto.Name,
