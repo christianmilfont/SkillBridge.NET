@@ -13,6 +13,16 @@ using SkillBridge_dotnet.Api.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+// --------------------
+// Configuração de CORS
+// --------------------
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", policy =>
+        policy.WithOrigins("http://10.3.63.34:19000", "http://10.3.63.34:19001")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 
 // ===========================================================
 // 🔹 Identificação do serviço para o OpenTelemetry
@@ -130,6 +140,7 @@ builder.Services.AddOpenTelemetry()
 // 🔹 Build do app
 // ===========================================================
 var app = builder.Build();
+app.UseCors("AllowLocalhost");
 
 // ===========================================================
 // 🔹 Swagger apenas em desenvolvimento
