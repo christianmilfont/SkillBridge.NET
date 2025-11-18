@@ -17,7 +17,7 @@ APP_SERVICE_PLAN="plan-${DB_NAME}"
 WEB_APP_NAME="${DB_NAME}-webapp"
 LOCATION="eastus"
 RUNTIME="DOTNET|8.0"
-
+#a
 # ================================
 # 1. Validação da Presença do Cliente MySQL
 # ================================
