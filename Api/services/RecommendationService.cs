@@ -116,33 +116,105 @@ namespace SkillBridge_dotnet.Api.Services
             await _context.SaveChangesAsync();
         }
 
-        // ================================
-        // 🔹 Recomendação de vagas
-        // ================================
-        public async Task RecommendVacancyAsync(Vacancy vacancy)
+// ================================
+// 🔹 Recomendação de vagas (igual cursos)
+// ================================
+public async Task RecommendVacancyAsync(Vacancy vacancy)
+{
+    var vacancyCompetencies = await _context.VacancyCompetencies
+        .Where(vc => vc.VacancyId == vacancy.Id)
+        .Include(vc => vc.Competency)
+        .ToListAsync();
+
+    // 1️⃣ Se a vaga tem competências → lógica forte
+    if (vacancyCompetencies.Count > 0)
+    {
+        await RecommendVacancyByCompetency(vacancy, vacancyCompetencies);
+        return;
+    }
+
+    // 2️⃣ Se NÃO tem competências → MACHINE LEARNING FRACO
+    var keywords = ExtractKeywords(vacancy.Title + " " + vacancy.Description);
+
+    var competencies = await _context.Competencies.ToListAsync();
+
+    // Procurar competências parecidas pelo título/descrição
+    var matchedCompetencies = competencies
+        .Where(c => keywords.Any(k =>
+            Similarity(k, c.Name) >= 0.6 ||
+            c.Name.ToLower().Contains(k) ||
+            k.Contains(c.Name.ToLower())
+        ))
+        .ToList();
+
+    // Perfis que têm essas skills
+    var profiles = await _context.ProfileCompetencies
+        .Where(pc => matchedCompetencies.Select(mc => mc.Id).Contains(pc.CompetencyId))
+        .Select(pc => pc.Profile)
+        .Distinct()
+        .ToListAsync();
+
+    foreach (var profile in profiles)
+    {
+        _context.Recommendations.Add(new Recommendation
         {
-            var vacancyCompetencies = await _context.VacancyCompetencies
-                .Where(vc => vc.VacancyId == vacancy.Id)
-                .Select(vc => vc.CompetencyId)
-                .ToListAsync();
+            ProfileId = profile.Id,
+            VacancyId = vacancy.Id
+        });
+    }
 
-            var profiles = await _context.ProfileCompetencies
-                .Where(pc => vacancyCompetencies.Contains(pc.CompetencyId))
-                .Select(pc => pc.Profile)
-                .Distinct()
-                .ToListAsync();
+    await _context.SaveChangesAsync();
+}
 
-            foreach (var profile in profiles)
+// ================================
+// 🔹 Método auxiliar: recomendação de vaga por competência e nível
+// ================================
+private async Task RecommendVacancyByCompetency(Vacancy vacancy, List<VacancyCompetency> vacancyCompetencies)
+{
+    var neededCompetencies = vacancyCompetencies
+        .Select(vc => new
+        {
+            vc.CompetencyId,
+            RequiredLevel = vc.Competency.RecommendedLevel // usa mesmo campo
+        })
+        .ToList();
+
+    var profiles = await _context.Profiles
+        .Include(p => p.ProfileCompetencies)
+        .ToListAsync();
+
+    foreach (var profile in profiles)
+    {
+        bool isCompatible = false;
+
+        foreach (var need in neededCompetencies)
+        {
+            var pc = profile.ProfileCompetencies
+                .FirstOrDefault(x => x.CompetencyId == need.CompetencyId);
+
+            if (pc != null)
             {
-                _context.Recommendations.Add(new Recommendation
+                // Nível do perfil >= nível requerido pela vaga
+                if ((int)pc.SelfAssessedLevel >= (int)need.RequiredLevel)
                 {
-                    ProfileId = profile.Id,
-                    VacancyId = vacancy.Id
-                });
+                    isCompatible = true;
+                    break;
+                }
             }
-
-            await _context.SaveChangesAsync();
         }
+
+        if (isCompatible)
+        {
+            _context.Recommendations.Add(new Recommendation
+            {
+                ProfileId = profile.Id,
+                VacancyId = vacancy.Id
+            });
+        }
+    }
+
+    await _context.SaveChangesAsync();
+}
 
         // ================================
         // 🔹 Helpers de Machine Learning fraco

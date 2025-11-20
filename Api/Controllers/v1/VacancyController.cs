@@ -20,7 +20,20 @@ namespace SkillBridge_dotnet.Api.Controllers
             _context = context;
             _recom = new RecommendationService(context);
         }
+            // GET api/vacancy/{id}
+            [HttpGet("{id}")]
+            public async Task<IActionResult> GetVacancyById(Guid id)
+            {
+                var vacancy = await _context.Vacancies
+                    .Include(v => v.VacancyCompetencies)
+                        .ThenInclude(vc => vc.Competency)
+                    .FirstOrDefaultAsync(v => v.Id == id);
 
+                if (vacancy == null)
+                    return NotFound(new { message = "Vacancy not found." });
+
+                return Ok(vacancy);
+            }
         [HttpPost]
         public async Task<IActionResult> CreateVacancy([FromBody] CreateVacancyDto dto)
         {
