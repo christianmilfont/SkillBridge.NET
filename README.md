@@ -3,14 +3,20 @@
 ## Visão Geral
 
 **SkillBridge** é uma API desenvolvida em **.NET 8 (ASP.NET Core)** que faz parte da plataforma **SkillBridge** — um ecossistema de requalificação profissional e conexão entre aprendizado e mercado de trabalho.  
+![Imagem do WhatsApp de 2025-11-23 à(s) 17 49 10_f2999625](https://github.com/user-attachments/assets/203dc18e-15e2-4a7e-9810-cb986c9a1db7)
 
 O projeto tem como objetivo **conectar perfis de usuários a cursos, competências e vagas**, permitindo uma **trilha de aprendizado personalizada** gerada por **inteligência artificial (IA)**.
 
 Esta API é o **núcleo principal (backend)** do sistema, responsável pelos **CRUDs** (Create, Read, Update, Delete) das entidades principais e pela **instrumentação de observabilidade completa com OpenTelemetry**, garantindo rastreabilidade e métricas em produção.
 
+
+Nossa proposta e o Product Deck:
+<img width="926" height="574" alt="image" src="https://github.com/user-attachments/assets/ef9801d1-3d4d-4741-9dff-88f6b45f721e" />
+
 ---
 
 ## Arquitetura
+<img width="990" height="666" alt="image" src="https://github.com/user-attachments/assets/65a8aef5-4241-4b10-b69d-dc1469ce95ed" />
 
 A aplicação segue uma arquitetura **modular e escalável**, com integração nativa ao **MySQL** e suporte total a **telemetria (traces, métricas, logs)** via **OpenTelemetry**.
 
