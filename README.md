@@ -231,6 +231,356 @@ appsettings.json
   Health Check: http://localhost:5000/healthz
 ```
 
+## CRUD COMPLETO PARA O README.md
+
+Abaixo está a lista de todas as rotas CRUD referentes às entidades presentes no seu banco:
+```bash
+Users
+
+Profiles
+
+Competencies
+
+Courses
+
+Vacancies
+
+Enrollments
+
+Recommendations
+
+Relações N:N
+
+course_competencies
+
+profile_competencies
+
+vacancy_competencies
+```
+**As rotas estão organizadas por entidade.**
+
+1. USERS – CRUD
+Create User
+
+POST /api/users
+```
+{
+  "email": "usuario1@exemplo.com",
+  "username": "usuario1",
+  "password": "123456",
+  "role": "admin"
+}
+```
+Get All Users
+
+GET /api/users
+
+Get User by ID
+
+GET /api/users/{id}
+
+Update User
+```
+PUT /api/users/{id}
+
+{
+  "email": "usuario.atualizado@exemplo.com",
+  "username": "usuario1",
+  "role": "admin"
+}
+```
+Delete User
+```
+DELETE /api/users/{id}
+
+Deleta automaticamente o Profile (CASCADE).
+```
+2. PROFILES – CRUD
+ 
+```
+Create Profile
+
+POST /api/profiles
+
+{
+  "fullName": "Nome do Usuário 1",
+  "bio": "Bio do usuário",
+  "location": "São Paulo - SP",
+  "userId": "ID_DO_USER"
+}
+```
+Get All Profiles
+
+GET /api/profiles
+
+Get Profile by ID
+
+GET /api/profiles/{id}
+```
+Update Profile
+
+PUT /api/profiles/{id}
+
+{
+  "fullName": "Nome Atualizado",
+  "bio": "Bio atualizada",
+  "location": "Rio de Janeiro - RJ"
+}
+```
+```
+Delete Profile
+
+DELETE /api/profiles/{id}
+```
+3. COMPETENCIES – CRUD
+```
+Create Competency
+
+POST /api/competencies
+
+{
+  "name": "Lógica de Programação",
+  "description": "Fundamentos de lógica",
+  "recommendedLevel": "Beginner"
+}
+```
+Get All
+
+GET /api/competencies
+
+Get by ID
+
+GET /api/competencies/{id}
+```
+Update
+
+PUT /api/competencies/{id}
+
+{
+  "description": "Descrição atualizada",
+  "recommendedLevel": "Intermediate"
+}
+```
+```
+Delete
+
+DELETE /api/competencies/{id}
+```
+4. COURSES – CRUD
+```
+Create Course
+
+POST /api/courses
+
+{
+  "title": "Curso de APIs com .NET",
+  "description": "Aprenda a criar APIs RESTful",
+  "durationHours": 20,
+  "price": 79.90
+}
+```
+Get All Courses
+
+GET /api/courses
+
+Get by ID
+
+GET /api/courses/{id}
+```
+Update
+
+PUT /api/courses/{id}
+
+{
+  "price": 99.90,
+  "durationHours": 24
+}
+```
+```
+Delete
+
+DELETE /api/courses/{id}
+```
+5. VACANCIES – CRUD
+```
+Create Vacancy
+
+POST /api/vacancies
+
+{
+  "title": "Desenvolvedor Back-end",
+  "company": "TechCorp",
+  "location": "São Paulo",
+  "description": "Desenvolvimento de APIs",
+  "salaryMin": 5000,
+  "salaryMax": 9000,
+  "status": "Open"
+}
+```
+Get All
+
+GET /api/vacancies
+
+Get by ID
+
+GET /api/vacancies/{id}
+```
+Update
+
+PUT /api/vacancies/{id}
+
+{
+  "title": "Backend Pleno",
+  "location": "Remoto",
+  "status": "Closed"
+}
+```
+```
+Delete
+
+DELETE /api/vacancies/{id}
+```
+6. ENROLLMENTS – CRUD
+
+```
+Create Enrollment
+
+POST /api/enrollments
+
+{
+  "userId": "ID_USER",
+  "courseId": "ID_COURSE",
+  "status": "InProgress"
+}
+```
+Get All
+
+GET /api/enrollments
+
+Get by ID
+
+GET /api/enrollments/{id}
+```
+Update (Progress & Score)
+
+PUT /api/enrollments/{id}
+
+{
+  "progress": 75.5,
+  "score": 8.5,
+  "status": "Completed"
+}
+```
+```
+Delete
+
+DELETE /api/enrollments/{id}
+```
+7. RECOMMENDATIONS – CRUD
+
+```
+Create Recommendation
+
+POST /api/recommendations
+
+{
+  "profileId": "ID_PROFILE",
+  "courseId": "ID_COURSE",
+  "vacancyId": "ID_VACANCY"
+}
+```
+Get All
+
+GET /api/recommendations
+
+Get by ID
+
+GET /api/recommendations/{id}
+```
+Delete
+
+DELETE /api/recommendations/{id}
+```
+Geralmente não tem UPDATE pois são geradas automaticamente.
+
+8. RELAÇÕES N:N (JOIN TABLES)
+8.1 Course_Competencies
+
+```
+Create
+
+POST /api/courses/{courseId}/competencies
+
+{
+  "competencyId": "ID_COMPETENCY",
+  "coveragePercent": 80,
+  "requiredLevel": 3
+}
+```
+Get List
+
+GET /api/courses/{courseId}/competencies
+```
+Delete
+
+DELETE /api/courses/{courseId}/competencies/{competencyId}
+```
+8.2 Profile_Competencies
+
+```
+Create
+
+POST /api/profiles/{profileId}/competencies
+
+{
+  "competencyId": "ID_COMPETENCY",
+  "selfAssessedLevel": "Intermediate",
+  "yearsExperience": 2
+}
+```
+```
+Get
+
+GET /api/profiles/{profileId}/competencies
+```
+```
+Update
+
+PUT /api/profiles/{profileId}/competencies/{competencyId}
+
+{
+  "selfAssessedLevel": "Advanced",
+  "yearsExperience": 4
+}
+```
+```
+Delete
+
+DELETE /api/profiles/{profileId}/competencies/{competencyId}
+```
+8.3 Vacancy_Competencies
+
+```
+Create
+
+POST /api/vacancies/{vacancyId}/competencies
+
+{
+  "competencyId": "ID_COMPETENCY",
+  "isMandatory": true,
+  "requiredLevel": "Senior"
+}
+```
+List
+
+GET /api/vacancies/{vacancyId}/competencies
+```
+Delete
+
+DELETE /api/vacancies/{vacancyId}/competencies/{competencyId}
+```
+
+
 
 #### Autor
 Christian Milfont — Desenvolvedor Full Stack / FIAP
