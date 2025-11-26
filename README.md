@@ -19,7 +19,7 @@ Nossa proposta e o Product Deck:
 ---
 
 ## Arquitetura
-<img width="990" height="666" alt="image" src="https://github.com/user-attachments/assets/65a8aef5-4241-4b10-b69d-dc1469ce95ed" />
+<img width="997" height="655" alt="image" src="https://github.com/user-attachments/assets/bc17434c-1e7e-4620-95d5-c7226eb561ef" />
 
 A aplicação segue uma arquitetura **modular e escalável**, com integração nativa ao **MySQL** e suporte total a **telemetria (traces, métricas, logs)** via **OpenTelemetry**.
 
