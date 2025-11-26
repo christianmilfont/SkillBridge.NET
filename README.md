@@ -233,7 +233,7 @@ appsettings.json
 
 ## CRUD COMPLETO PARA O README.md
 
-Abaixo está a lista de todas as rotas CRUD referentes às entidades presentes no seu banco:
+Abaixo está a lista de todas as rotas CRUD referentes às entidades presentes no banco/aplication:
 ```bash
 Users
 
